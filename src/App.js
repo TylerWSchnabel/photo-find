@@ -24,8 +24,6 @@ function App() {
       var b = Math.round((event.offsetY / event.target.clientHeight)*100);;
       setClickCord({x: a, y: b});
     };
-    
-    setNewCord(theCords);
 
     window.addEventListener('mousemove', handleMouseMove);
   },[]);
@@ -40,9 +38,7 @@ function App() {
     measurementId: "G-2JLM9HDG16"
   };
   
-  let x = 0
-  let y = 0
-  let theCords = {x:x, y:y}
+  let theCords;
 
   const openPop = (id) => {
     const pop = document.getElementById(id);
@@ -57,24 +53,20 @@ function App() {
       pop.style.top = mousePos.y - 40 + 'px';
       highlight.style.left = mousePos.x - 35 + 'px';
       highlight.style.top = mousePos.y -35  + 'px';
-      x= clickCord.x;
-      y= clickCord.y;
-      theCords= {x: x, y: y}
-      console.log(newCord);
+      theCords= {x: clickCord.x, y: clickCord.y}
+      setNewCord(theCords);
       console.log(theCords);
     }
   }
 
   const cordCheck = (clicked) => {
-    x= clickCord.x;
-    y= clickCord.y;
-    theCords= {x: x, y: y}
+    console.log('TheCords: '+newCord);
     console.log('clicked : ' +clicked.x +' '+clicked.y)
-    console.log('cord : '+ theCords.x + ' ' + theCords.y)
-    let diffX = Math.abs(clicked.x-theCords.x);
-    let diffY = Math.abs(clicked.y-theCords.y);
+    console.log('cord : '+newCord.x + ' ' + newCord.y)
+    let diffX = Math.abs(clicked.x-newCord.x);
+    let diffY = Math.abs(clicked.y-newCord.y);
     console.log('diff : ' + diffX+' - ' + diffY);
-    if ((diffX<10)&&(diffY<10)){
+    if ((diffX<2)&&(diffY<2)){
       console.log('correct!');
       return true;
     } else {
