@@ -1,17 +1,47 @@
 import './App.css';
-//import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import Home from './components/Home';
 import BobsBurgers from './components/BobsBurgers'
 import SouthPark from './components/SouthPark'
 import Futurama from './components/Futurama'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { click } from '@testing-library/user-event/dist/click';
+import uniqid from 'uniqid';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  setDoc,
+  query,
+  onSnapshot,
+  serverTimestamp,
+  deleteDoc,
+  updateDoc,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy
+} from 'firebase/firestore';
+import 'firebase/firestore';
 
 function App() {
+
+  
 
   const [mousePos, setMousePos] = useState({});
   const [clickCord, setClickCord] = useState({});
   const [newCord, setNewCord] = useState({});
+  const [char, setChar] = useState([false, false, false]);
+  const [timeStart, setTimeStart] = useState();
+  /*const [timeEnd, setTimeEnd] = useState();
+  const [time, setTime] = useState(); */
+  const [compTime, setCompTime] = useState();
+  const [leaderboard, setLeaderboard] = useState();
+
+  let timeEnd;
+  let time;
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -24,9 +54,12 @@ function App() {
       var b = Math.round((event.offsetY / event.target.clientHeight)*100);;
       setClickCord({x: a, y: b});
     };
-
     window.addEventListener('mousemove', handleMouseMove);
   },[]);
+
+  useEffect(()=>{
+    setCompTime(time);
+  },[time])
 
   const firebaseConfig = {
     apiKey: "AIzaSyABDWf6LxeTihq04tq30dvZPRe3bY941_Q",
@@ -37,8 +70,18 @@ function App() {
     appId: "1:123475712796:web:19142b7eb6e6f0f0bcb8d9",
     measurementId: "G-2JLM9HDG16"
   };
-  
+
+  const app = initializeApp(firebaseConfig);
+
+  const db = getFirestore(app);
+  const analytics = getAnalytics(app);
   let theCords;
+
+  const charFound = (pos) =>{
+    let arr = char;
+    arr[pos] = true;
+    setChar(arr);
+  }
 
   const openPop = (id) => {
     const pop = document.getElementById(id);
@@ -55,39 +98,128 @@ function App() {
       highlight.style.top = mousePos.y -35  + 'px';
       theCords= {x: clickCord.x, y: clickCord.y}
       setNewCord(theCords);
-      console.log(theCords);
     }
   }
 
-  const cordCheck = (clicked) => {
-    console.log('TheCords: '+newCord);
-    console.log('clicked : ' +clicked.x +' '+clicked.y)
-    console.log('cord : '+newCord.x + ' ' + newCord.y)
+  const cordCheck = (clicked, id, pos) => {
+    const pop = document.getElementById(id);
+    const highlight = document.getElementById('highlight');
+    const label = document.getElementById('guide'+pos);
     let diffX = Math.abs(clicked.x-newCord.x);
     let diffY = Math.abs(clicked.y-newCord.y);
-    console.log('diff : ' + diffX+' - ' + diffY);
+    pop.style.display = 'none';
+    highlight.style.display ="none";
     if ((diffX<2)&&(diffY<2)){
-      console.log('correct!');
+      clicked.found = true;
+      charFound(pos);
+      allFound();
+      foundPop();
+      label.style.textDecoration = 'line-through';
       return true;
     } else {
       console.log('wrong.');
       return false;
     }
+    
+  }
+
+  const resetChar = () => {
+    setChar([false,false,false])
   }
 
   
 
+  const allFound = () => {
+    let found = true;
+    for (let i=0; i<char.length; i++){
+      if (char[i] !== true) {
+        found = false;
+      }
+    }
+    return found;
+  };
+
+  const foundPop = () => {
+    if (allFound() === true){
+      document.getElementById('foundPop').style.display = 'grid';
+      document.getElementById('timerBG').style.display = 'block';
+      endTimer();
+      getTime();
+      document.getElementById('finishTime').textContent = time;
+    }
+  }
+
+  const startTimer = () => {
+    resetChar();
+    setTimeStart(Date.now());
+    document.getElementById('timerBox').style.display = 'none';
+    document.getElementById('timerBG').style.display = 'none';
+    document.getElementById('legend').style.display ='grid';
+  }
+  
+  const endTimer = () => {
+    timeEnd = Date.now();
+  }
+  
+  const getTime =()=> {
+    time=((timeEnd - timeStart)/1000);
+    setCompTime(time);
+    return time;
+  }
+
+  let username;
+
+  const getUsername =()=>{
+    username = document.getElementById('name-input').value;
+  }
+
+  async function saveTime(level){
+    getUsername();
+    time=((timeEnd - timeStart)/1000);
+    try{
+      await setDoc(doc(db,level,username),{
+        time: compTime,
+        name: username,
+        id: uniqid()
+      });
+    }
+    catch(error){
+      console.log('Error saving time to Database',error);
+    }
+    document.getElementById('submit-time').disabled = true;
+  }
+
+  const getLeaderboard = (level) => {
+    const leaders = query(collection(db, level));
+
+    const leaderboardARR = []
+    const list = query(leaders, orderBy("time", "desc"));
+    onSnapshot(list, function(snapshot) {
+    
+      snapshot.docChanges().forEach(function(change) {
+          var entry = change.doc.data();
+          leaderboardARR.push({
+            username: entry.name,
+            time: entry.time,
+            id: entry.id
+          })
+    })})
+  setLeaderboard(leaderboardARR);
+  console.log(leaderboard);
+  console.log(leaderboardARR);
+  }
+
   return (
     <div className="App">
-      <BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord}/>
-      {/* <Router basename="/photo-find">
+      {/* <BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer}/> */}
+      <Router basename="/photo-find">
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop}/>} />
-          <Route path='/south-park' element={<SouthPark openPop={openPop}/>} />
-          <Route path='/futurama' element={<Futurama openPop={openPop}/>}/>
+          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>} />
+          <Route path='/south-park' element={<SouthPark openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>} />
+          <Route path='/futurama' element={<Futurama openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>}/>
         </Routes>
-      </Router> */}
+      </Router>
     </div>
   );
 }

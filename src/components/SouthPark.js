@@ -1,36 +1,56 @@
 import { getDefaultNormalizer } from "@testing-library/react"
 import React from "react";
+import { Link } from "react-router-dom";
 import SouthParkPhoto from './Files/southpark.jpg'
-import Fischoeder from'./Files/MrFischoeder-bobs.webp'
-import Harold from './Files/HaroldCranwinkle-bobs.png'
-import Ron from './Files/Ron-bobs.png'
+import Gnome from'./Files/gnome.png'
+import Shelley from './Files/Shelly.webp'
+import Al from './Files/Al-gore.webp'
 import { click } from "@testing-library/user-event/dist/click";
 
 
 
 const SouthPark = (props) => {
-    const {openPop} = props
-    const fischoeder = [671, 676];
-    const harold = [291, 793];
-    const ron = [1216, 726];
+    const {openPop, cordCheck, startTimer, saveTime} = props
+    const underpantsGnome = {x: 35, y: 66};
+    const alGore = {x: 84, y: 40};
+    const shelley = {x: 7, y: 49};
+    const characters = [underpantsGnome, alGore, shelley]
     return (  
-        <div >
-            <div className="legend">
+        <div className="futurama">
+            <div id="timerBG"></div>
+            <div id='timerBox'>
+                <button className="timerBtn" onClick={()=>startTimer()}>Start Timer?</button>
+                <Link to='/'>
+                    <button className="timerBtn">Home</button>
+                </Link>
+            </div>
+            <div id="legend">
+                <Link to='/'>
+                    <p className="nav-label">Home</p>
+                </Link>
                 <p className="instructions">Find :</p>
-                <img src={Fischoeder} alt="Mr. Fischoeder" className="legendImg"/>
-                <p className="findItem">Mr. Fischoeder</p>
-                <img src={Harold} alt="Harold Cranwinkle" className="legendImg"/>
-                <p className="findItem">Harold</p>
-                <img src={Ron} alt="ron" className="legendImg"/>
-                <p className="findItem">Ron</p>
+                <img src={Gnome} alt="Underpants Gnome" className="legendImg"/>
+                <p className="findItem" id="guide0">Underpants Gnome</p>
+                <img src={Al} alt="Al Gore" className="legendImg"/>
+                <p className="findItem" id="guide1">Al Gore</p>
+                <img src={Shelley} alt="shelley" className="legendImg"/>
+                <p className="findItem" id="guide2">Shelley</p>
             </div>
-            <img src={SouthParkPhoto} alt="South Park" className="heroPhoto" id="southParkPhoto" onClick={()=>{openPop('spPop')}}/>
-            <div className="pop-up" id="spPop">
-                <button className="popBtn" id="fischoeder">Mr Fischoeder</button>
-                <button className="popBtn" id="harold">Harold Cranwinkle</button>
-                <button className="popBtn" id="ron">Ron</button>
+            <img src={SouthParkPhoto} alt="South Park" className="heroPhoto" id="south-parkPhoto" onClick={()=>{openPop('bobsPop')}}/>
+            <div className="highlight" id="highlight"></div>
+            <div className="pop-up" id="bobsPop">
+                <button className="popBtn" id="underpantsGnome" onClick={()=>cordCheck(characters[0],'bobsPop', 0)}>Underpants Gnome</button>
+                <button className="popBtn" id="alGore" onClick={()=>cordCheck(characters[1],'bobsPop', 1)}>Al Gore</button>
+                <button className="popBtn" id="shelley" onClick={()=>cordCheck(characters[2],'bobsPop', 2)}>Shelley</button>
             </div>
-
+            <div id="foundPop">
+                <p>All characters found! Your time is:</p>
+                <div id="finishTime"></div>
+                    <input id="name-input" placeholder="Name"></input>
+                    <button onClick={()=>saveTime("South Park")}>Submit</button>
+                <button onClick={() => window.location.reload()}>Play Again?</button>
+                <button className="leaderBtn">Leaderboard</button>
+            </div>
         </div>
     )
 };
