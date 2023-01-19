@@ -25,6 +25,7 @@ import {
   orderBy
 } from 'firebase/firestore';
 import 'firebase/firestore';
+import Leaderboard from './components/Leaderboard';
 
 function App() {
 
@@ -193,7 +194,7 @@ function App() {
     const leaders = query(collection(db, level));
 
     const leaderboardARR = []
-    const list = query(leaders, orderBy("time", "desc"));
+    const list = query(leaders, orderBy("time"));
     onSnapshot(list, function(snapshot) {
     
       snapshot.docChanges().forEach(function(change) {
@@ -201,12 +202,12 @@ function App() {
           leaderboardARR.push({
             username: entry.name,
             time: entry.time,
+            level: level,
             id: entry.id
           })
     })})
   setLeaderboard(leaderboardARR);
-  console.log(leaderboard);
-  console.log(leaderboardARR);
+  return leaderboard;
   }
 
   return (
@@ -214,10 +215,11 @@ function App() {
       {/* <BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer}/> */}
       <Router basename="/photo-find">
         <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>} />
+          <Route path='/' element={<Home leaderboard={leaderboard} getLeaderboard={getLeaderboard}/>}/>
+          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime}  getLeaderboard={getLeaderboard} leaderboard={leaderboard}/>} />
           <Route path='/south-park' element={<SouthPark openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>} />
           <Route path='/futurama' element={<Futurama openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>}/>
+          <Route path='/leaderboard' element={<Leaderboard leaderboard={leaderboard} getLeaderboard={getLeaderboard}/>}/>
         </Routes>
       </Router>
     </div>

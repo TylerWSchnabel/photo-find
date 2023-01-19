@@ -9,7 +9,7 @@ import Elzar from './Files/Elzar.webp'
 
 
 const Futurama = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard} = props
     const zapp = {x:15, y: 61};
     const beelzebot = {x: 46, y: 46};
     const elzar = {x: 75, y: 84};
@@ -46,9 +46,11 @@ const Futurama = (props) => {
                 <p>All characters found! Your time is:</p>
                 <div id="finishTime"></div>
                     <input id="name-input" placeholder="Name"></input>
-                    <button onClick={()=>saveTime("Futurama")}>Submit</button>
+                    <button id='submit-time' onClick={()=>saveTime("Futurama")}>Submit</button>
                 <button onClick={() => window.location.reload()}>Play Again?</button>
-                <button className="leaderBtn">Leaderboard</button>
+                <Link to='/leaderboard'>
+                    <button className="leaderBtn" onClick={()=>getLeaderboard("Futurama")}>Leaderboard</button>
+                </Link>  
             </div>
         </div>
     )

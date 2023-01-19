@@ -127,7 +127,25 @@ a:visited{
 
 }
 
-#leaderboardPop{
-  display: none;
+.leaderboard-container{
+  background-color: black;
+  height: 100vh;
+  margin: none;
+  display: grid;
+
 
 }
+
+.leaderboard {
+  background-color: white;
+  width: 40rem;
+  height: 40rem;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.leaderboard-entry{
+  color: black;
+}
+

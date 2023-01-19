@@ -5,13 +5,15 @@ import Bobs from './Files/BobsBurgers.jpeg'
 import Fischoeder from'./Files/MrFischoeder-bobs.webp'
 import Harold from './Files/HaroldCranwinkle-bobs.png'
 import Ron from './Files/Ron-bobs.png'
+import Leaderboard from "./Leaderboard";
 
 
 const BobsBurgers = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard} = props
+    const {openPop, cordCheck, startTimer, saveTime, showLeaderboard,leaderboard, getLeaderboard} = props
     let fischoeder = {x: 45, y: 64};
     let harold = {x: 19, y: 78};
     let ron = {x: 83, y: 70};
+    
 
     const characters = [fischoeder, harold, ron]
     return (  
@@ -48,16 +50,9 @@ const BobsBurgers = (props) => {
                     <input id="name-input" placeholder="Name"></input>
                     <button id='submit-time' onClick={()=>saveTime("Bob's Burgers")}>Submit</button>
                 <button onClick={() => window.location.reload()}>Play Again?</button>
-                <button className="leaderBtn" onClick={()=>getLeaderboard("Bob's Burgers")}>Leaderboard</button>
-            </div>
-            <div id="leaderboardPop">
-                <p className="leaderboard-head">Leaderboard</p>
-                <div className="leaderboard-labels">
-                    <p className="leaderboard-usernames">User</p>
-                    <p className="leaderboard-times">Time</p>
-                </div>
-                <div className="leaderboard">
-                </div>
+                <Link to='/leaderboard'>
+                    <button className="leaderBtn" onClick={()=>getLeaderboard("Bob's Burgers")}>Leaderboard</button>
+                </Link>
             </div>
         </div>
     )

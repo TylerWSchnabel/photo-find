@@ -10,7 +10,7 @@ import { click } from "@testing-library/user-event/dist/click";
 
 
 const SouthPark = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard} = props
     const underpantsGnome = {x: 35, y: 66};
     const alGore = {x: 84, y: 40};
     const shelley = {x: 7, y: 49};
@@ -47,9 +47,11 @@ const SouthPark = (props) => {
                 <p>All characters found! Your time is:</p>
                 <div id="finishTime"></div>
                     <input id="name-input" placeholder="Name"></input>
-                    <button onClick={()=>saveTime("South Park")}>Submit</button>
+                    <button id='submit-time' onClick={()=>saveTime("South Park")}>Submit</button>
                 <button onClick={() => window.location.reload()}>Play Again?</button>
-                <button className="leaderBtn">Leaderboard</button>
+                <Link to='/leaderboard'>
+                    <button className="leaderBtn" onClick={()=>getLeaderboard("South Park")}>Leaderboard</button>
+                </Link>  
             </div>
         </div>
     )

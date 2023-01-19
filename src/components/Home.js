@@ -3,8 +3,11 @@ import BB from "./Files/BobsBurgers.jpeg";
 import SP from "./Files/southpark.jpg"
 import FR from "./Files/futurama.jpg";
 import { Link } from "react-router-dom";
+import Leaderboard from "./Leaderboard";
 
-const Home = () => {
+const Home = (props) => {
+
+    const {leaderboard, getLeaderboard} = props;
 
     return(
         <div className="home">
@@ -25,6 +28,9 @@ const Home = () => {
                     <p className="level-name">Futurama</p>
                 </Link>
             </div>
+            <Link to='/leaderboard'>
+                <button onClick={()=>getLeaderboard("Bob's Burgers")}>Leaderboard</button>
+            </Link>
         </div>
     )
 
