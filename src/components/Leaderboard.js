@@ -3,15 +3,26 @@ import React from "react";
 
 const Leaderboard =(props)=>{
 
-    const {leaderboard} = props;
+    const {leaderboard,selectedLevel, getLeaderboard} = props;
+
+    getLeaderboard(selectedLevel);
 
     return <div className='leaderboard-container'>
-        <h1 className="leaderboard-title">Leaderboard</h1>
+        <h1 className="leaderboard-header">{selectedLevel} Leaderboard</h1>
         <div className="leaderboard">
+            <ul className="leaderboard-titles">
+                <div className="labels">
+                    <p className="leader-label">Name</p>
+                    <p className="leader-label">Time</p>
+                </div>
+            </ul>
         { <ol className="leaderBoard-list">
                 {leaderboard.map((entry)=>{
                     return <li className="leaderboard-entry" key={entry.id}>
-                        <p>{entry.username} - {entry.time}</p>
+                        <div className="leader-line">
+                            <p>{entry.username}</p>
+                            <p>{entry.time}</p>
+                        </div>
                     </li>
                 })}
             </ol>}

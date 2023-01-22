@@ -5,15 +5,24 @@ import Future from './Files/futurama.jpg'
 import Zapp from'./Files/Zapp.webp'
 import Beelzebot from './Files/Beelzebot.webp'
 import Elzar from './Files/Elzar.webp'
+import { useEffect } from "react";
 
 
 
 const Futurama = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, leaderboard, showLeaderboard, closeLeaderboard} = props
     const zapp = {x:15, y: 61};
     const beelzebot = {x: 46, y: 46};
     const elzar = {x: 75, y: 84};
     const characters = [zapp, beelzebot, elzar]
+
+    let level = "Futurama";
+
+    useEffect(()=>{
+        getLeaderboard("Futurama")
+      },[])
+    
+
     return (  
         <div className="futurama">
             <div id="timerBG"></div>
@@ -48,9 +57,35 @@ const Futurama = (props) => {
                     <input id="name-input" placeholder="Name"></input>
                     <button id='submit-time' onClick={()=>saveTime("Futurama")}>Submit</button>
                 <button onClick={() => window.location.reload()}>Play Again?</button>
-                <Link to='/leaderboard'>
-                    <button className="leaderBtn" onClick={()=>getLeaderboard("Futurama")}>Leaderboard</button>
-                </Link>  
+                <button  onClick={()=>showLeaderboard("Futurama")}>Leaderboard</button>
+ 
+            </div>
+            <div id='leaderboard-container'>
+                <h1 className="leaderboard-header">{level} Leaderboard</h1>
+                <div className="leaderboard">
+                    <ul className="leaderboard-titles">
+                        <div className="labels">
+                            <p className="leader-label">Name</p>
+                            <p className="leader-label">Time</p>
+                        </div>
+                    </ul>
+                <ol className="leaderBoard-list">
+                        {leaderboard.map((entry)=>{
+                            return <li className="leaderboard-entry" key={entry.id}>
+                                <div className="leader-line">
+                                    <p>{entry.username}</p>
+                                    <p>{entry.time}</p>
+                                </div>
+                            </li>
+                        })}
+                    </ol>
+                </div>
+                <div className="leaderBtn-container">
+                    <button className="leaderBtn" onClick={()=>closeLeaderboard()}>Close</button>
+                    <Link to='/'>
+                        <button className="leaderBtn">Home</button>
+                    </Link>
+                </div>
             </div>
         </div>
     )

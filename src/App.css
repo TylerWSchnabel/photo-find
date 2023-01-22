@@ -127,25 +127,68 @@ a:visited{
 
 }
 
-.leaderboard-container{
+#leaderboard-container{
   background-color: black;
-  height: 100vh;
+  height: 80%;
+  width: 100%;
   margin: none;
-  display: grid;
-
-
+  display: none;
+  opacity: .9;
+  z-index: 3;
+  position: fixed;
+  top: 15%;
+}
+.leaderboard-header {
+  color: white;
+  text-align: center;
 }
 
 .leaderboard {
   background-color: white;
   width: 40rem;
-  height: 40rem;
-  align-self: center;
+  height: 80%;
+  align-self: start;
   justify-self: center;
+  overflow-y:auto;
+  border-radius: 10px;
+}
+.leaderboard-title {
+  color: white;
+  text-align: center;
+}
+.labels {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 50% 50%;
+  color: black;
+  width: 80%;
+}
+.leader-label{
+  text-align: center;
+  font-weight: bolder;
 }
 .leaderboard-entry{
   color: black;
+  width: 80%;
+  align-self: center;
 }
 
+.leader-line{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  text-align: center;
+  justify-self: center;
+}
+.leaderBtn-container{
+  width: 40rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-self: center;
+  align-self: center;
+}
+
+.leaderBtn {
+  width: 15rem;
+  align-self: center;
+  justify-self: center;
+  align-self: center;
+}

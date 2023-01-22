@@ -7,7 +7,6 @@ import SouthPark from './components/SouthPark'
 import Futurama from './components/Futurama'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { click } from '@testing-library/user-event/dist/click';
 import uniqid from 'uniqid';
 import {
   getFirestore,
@@ -36,18 +35,15 @@ function App() {
   const [newCord, setNewCord] = useState({});
   const [char, setChar] = useState([false, false, false]);
   const [timeStart, setTimeStart] = useState();
-  /*const [timeEnd, setTimeEnd] = useState();
-  const [time, setTime] = useState(); */
   const [compTime, setCompTime] = useState();
-  const [leaderboard, setLeaderboard] = useState();
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [selectedLevel, setSelectedLevel] = useState("Bob's Burgers");
 
   let timeEnd;
   let time;
 
   useEffect(() => {
     const handleMouseMove = (event) => {
-      /* var x = Math.round((event.pageX/event.target.scrollWidth)*100 );
-      var y = Math.round((event.pageY /event.target.scrollHeight)*100); */
       var x = event.pageX;
       var y = event.pageY;
       setMousePos({ x: x, y: y});
@@ -61,6 +57,10 @@ function App() {
   useEffect(()=>{
     setCompTime(time);
   },[time])
+
+  useEffect(()=>{
+    getLeaderboard(selectedLevel)
+  },[])
 
   const firebaseConfig = {
     apiKey: "AIzaSyABDWf6LxeTihq04tq30dvZPRe3bY941_Q",
@@ -192,9 +192,9 @@ function App() {
 
   const getLeaderboard = (level) => {
     const leaders = query(collection(db, level));
-
     const leaderboardARR = []
     const list = query(leaders, orderBy("time"));
+    setSelectedLevel(level);
     onSnapshot(list, function(snapshot) {
     
       snapshot.docChanges().forEach(function(change) {
@@ -210,16 +210,32 @@ function App() {
   return leaderboard;
   }
 
+  const showLeaderboard =(level)=>{
+    getLeaderboard(level)
+    let div = document.getElementById('leaderboard-container');
+    let pop = document.getElementById('foundPop');
+    
+      pop.style.display = "none";
+      div.style.display = "grid";
+
+  }
+  const closeLeaderboard =()=>{
+    let div = document.getElementById('leaderboard-container');
+    
+    div.style.display="none";
+    document.getElementById('foundPop').style.display = 'grid';
+  }
+
   return (
     <div className="App">
       {/* <BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer}/> */}
       <Router basename="/photo-find">
         <Routes>
-          <Route path='/' element={<Home leaderboard={leaderboard} getLeaderboard={getLeaderboard}/>}/>
-          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime}  getLeaderboard={getLeaderboard} leaderboard={leaderboard}/>} />
-          <Route path='/south-park' element={<SouthPark openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>} />
-          <Route path='/futurama' element={<Futurama openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard}/>}/>
-          <Route path='/leaderboard' element={<Leaderboard leaderboard={leaderboard} getLeaderboard={getLeaderboard}/>}/>
+          <Route path='/' element={<Home leaderboard={leaderboard} getLeaderboard={getLeaderboard} setSelectedLevel={setSelectedLevel}/>}/>
+          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime}  getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>} />
+          <Route path='/south-park' element={<SouthPark openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>}/>
+          <Route path='/futurama' element={<Futurama openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>}/>
+          <Route path='/leaderboard' element={<Leaderboard leaderboard={leaderboard} getLeaderboard={getLeaderboard} selectedLevel={selectedLevel}/>}/>
         </Routes>
       </Router>
     </div>

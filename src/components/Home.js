@@ -7,7 +7,9 @@ import Leaderboard from "./Leaderboard";
 
 const Home = (props) => {
 
-    const {leaderboard, getLeaderboard} = props;
+    const {leaderboard, getLeaderboard, setSelectedLevel} = props;
+
+    
 
     return(
         <div className="home">

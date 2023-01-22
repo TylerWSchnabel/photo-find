@@ -9,10 +9,11 @@ import Leaderboard from "./Leaderboard";
 
 
 const BobsBurgers = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime, showLeaderboard,leaderboard, getLeaderboard} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, setSelectedLevel, leaderboard, showLeaderboard, closeLeaderboard} = props
     let fischoeder = {x: 45, y: 64};
     let harold = {x: 19, y: 78};
     let ron = {x: 83, y: 70};
+    let level = "Bob's Burgers";;
     
 
     const characters = [fischoeder, harold, ron]
@@ -50,9 +51,35 @@ const BobsBurgers = (props) => {
                     <input id="name-input" placeholder="Name"></input>
                     <button id='submit-time' onClick={()=>saveTime("Bob's Burgers")}>Submit</button>
                 <button onClick={() => window.location.reload()}>Play Again?</button>
-                <Link to='/leaderboard'>
-                    <button className="leaderBtn" onClick={()=>getLeaderboard("Bob's Burgers")}>Leaderboard</button>
-                </Link>
+                <button  onClick={()=>showLeaderboard("Bob's Burgers")}>Leaderboard</button>
+                
+            </div>
+            <div id='leaderboard-container'>
+                <h1 className="leaderboard-header">{level} Leaderboard</h1>
+                <div className="leaderboard">
+                    <ul className="leaderboard-titles">
+                        <div className="labels">
+                            <p className="leader-label">Name</p>
+                            <p className="leader-label">Time</p>
+                        </div>
+                    </ul>
+                    <ol className="leaderBoard-list">
+                        {leaderboard.map((entry)=>{
+                            return <li className="leaderboard-entry" key={entry.id}>
+                                <div className="leader-line">
+                                    <p>{entry.username}</p>
+                                    <p>{entry.time}</p>
+                                </div>
+                            </li>
+                        })}
+                    </ol>
+                </div>
+                <div className="leaderBtn-container">
+                    <button className="leaderBtn" onClick={()=>closeLeaderboard()}>Close</button>
+                    <Link to='/'>
+                        <button className="leaderBtn">Home</button>
+                    </Link>
+                </div>
             </div>
         </div>
     )

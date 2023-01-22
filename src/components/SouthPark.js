@@ -5,16 +5,21 @@ import SouthParkPhoto from './Files/southpark.jpg'
 import Gnome from'./Files/gnome.png'
 import Shelley from './Files/Shelly.webp'
 import Al from './Files/Al-gore.webp'
-import { click } from "@testing-library/user-event/dist/click";
+import { useEffect } from "react";
 
 
 
 const SouthPark = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, leaderboard, showLeaderboard, closeLeaderboard} = props
     const underpantsGnome = {x: 35, y: 66};
     const alGore = {x: 84, y: 40};
     const shelley = {x: 7, y: 49};
     const characters = [underpantsGnome, alGore, shelley]
+    
+    useEffect(()=>{
+        getLeaderboard("South Park")
+      },[])
+
     return (  
         <div className="futurama">
             <div id="timerBG"></div>
@@ -49,9 +54,34 @@ const SouthPark = (props) => {
                     <input id="name-input" placeholder="Name"></input>
                     <button id='submit-time' onClick={()=>saveTime("South Park")}>Submit</button>
                 <button onClick={() => window.location.reload()}>Play Again?</button>
-                <Link to='/leaderboard'>
-                    <button className="leaderBtn" onClick={()=>getLeaderboard("South Park")}>Leaderboard</button>
-                </Link>  
+                <button  onClick={()=>showLeaderboard("South Park")}>Leaderboard</button>
+            </div>
+            <div id='leaderboard-container'>
+                <h1 className="leaderboard-header">South Park Leaderboard</h1>
+                <div className="leaderboard">
+                    <ul className="leaderboard-titles">
+                        <div className="labels">
+                            <p className="leader-label">Name</p>
+                            <p className="leader-label">Time</p>
+                        </div>
+                    </ul>
+                    <ol className="leaderBoard-list">
+                        {leaderboard.map((entry)=>{
+                            return <li className="leaderboard-entry" key={entry.id}>
+                                <div className="leader-line">
+                                    <p>{entry.username}</p>
+                                    <p>{entry.time}</p>
+                                </div>
+                            </li>
+                        })}
+                    </ol>
+                </div>
+                <div className="leaderBtn-container">
+                    <button className="leaderBtn" onClick={()=>closeLeaderboard()}>Close</button>
+                    <Link to='/'>
+                        <button className="leaderBtn">Home</button>
+                    </Link>
+                </div>
             </div>
         </div>
     )
