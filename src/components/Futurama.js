@@ -16,6 +16,10 @@ const Futurama = (props) => {
     const elzar = {x: 75, y: 84};
     const characters = [zapp, beelzebot, elzar]
 
+    useEffect(()=>{
+        getLeaderboard("Futurama");
+    },[])
+
     let level = "Futurama";
 
     useEffect(()=>{

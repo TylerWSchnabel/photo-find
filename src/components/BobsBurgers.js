@@ -1,6 +1,6 @@
 import { getDefaultNormalizer } from "@testing-library/react"
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import Bobs from './Files/BobsBurgers.jpeg'
 import Fischoeder from'./Files/MrFischoeder-bobs.webp'
 import Harold from './Files/HaroldCranwinkle-bobs.png'
@@ -14,6 +14,10 @@ const BobsBurgers = (props) => {
     let harold = {x: 19, y: 78};
     let ron = {x: 83, y: 70};
     let level = "Bob's Burgers";;
+
+    useEffect(()=>{
+        getLeaderboard("Bob's Burgers");
+    },[])
     
 
     const characters = [fischoeder, harold, ron]

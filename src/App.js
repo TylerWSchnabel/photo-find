@@ -58,10 +58,6 @@ function App() {
     setCompTime(time);
   },[time])
 
-  useEffect(()=>{
-    getLeaderboard(selectedLevel)
-  },[])
-
   const firebaseConfig = {
     apiKey: "AIzaSyABDWf6LxeTihq04tq30dvZPRe3bY941_Q",
     authDomain: "photo-find-1313.firebaseapp.com",
@@ -210,10 +206,10 @@ function App() {
   return leaderboard;
   }
 
-  const showLeaderboard =(level)=>{
-    getLeaderboard(level)
-    let div = document.getElementById('leaderboard-container');
-    let pop = document.getElementById('foundPop');
+  function showLeaderboard(){
+
+      let div = document.getElementById('leaderboard-container');
+      let pop = document.getElementById('foundPop');
     
       pop.style.display = "none";
       div.style.display = "grid";
