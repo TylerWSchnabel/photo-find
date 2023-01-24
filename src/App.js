@@ -24,7 +24,7 @@ import {
   orderBy
 } from 'firebase/firestore';
 import 'firebase/firestore';
-import Leaderboard from './components/Leaderboard';
+
 
 function App() {
 
@@ -231,7 +231,6 @@ function App() {
           <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime}  getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>} />
           <Route path='/south-park' element={<SouthPark openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>}/>
           <Route path='/futurama' element={<Futurama openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>}/>
-          <Route path='/leaderboard' element={<Leaderboard leaderboard={leaderboard} getLeaderboard={getLeaderboard} selectedLevel={selectedLevel}/>}/>
         </Routes>
       </Router>
     </div>

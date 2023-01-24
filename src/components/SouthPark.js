@@ -51,10 +51,12 @@ const SouthPark = (props) => {
             <div id="foundPop">
                 <p>All characters found! Your time is:</p>
                 <div id="finishTime"></div>
-                    <input id="name-input" placeholder="Name"></input>
-                    <button id='submit-time' onClick={()=>saveTime("South Park")}>Submit</button>
-                <button onClick={() => window.location.reload()}>Play Again?</button>
-                <button  onClick={()=>showLeaderboard("South Park")}>Leaderboard</button>
+                <input id="name-input" placeholder="Name"></input>
+                <button id='submit-time' onClick={()=>saveTime("South Park")}>Submit</button>
+                <div className="gameEndBtns-container">
+                    <button className="gameEndBtns" onClick={() => window.location.reload()}>Play Again?</button>
+                    <button className="gameEndBtns"  onClick={()=>showLeaderboard("South Park")}>Leaderboard</button>
+                </div>
             </div>
             <div id='leaderboard-container'>
                 <h1 className="leaderboard-header">South Park Leaderboard</h1>

@@ -5,7 +5,6 @@ import Bobs from './Files/BobsBurgers.jpeg'
 import Fischoeder from'./Files/MrFischoeder-bobs.webp'
 import Harold from './Files/HaroldCranwinkle-bobs.png'
 import Ron from './Files/Ron-bobs.png'
-import Leaderboard from "./Leaderboard";
 
 
 const BobsBurgers = (props) => {
@@ -34,6 +33,7 @@ const BobsBurgers = (props) => {
                 <Link to='/'>
                     <p className="nav-label">Home</p>
                 </Link>
+                
                 <p className="instructions">Find :</p>
                 <img src={Fischoeder} alt="Mr. Fischoeder" className="legendImg"/>
                 <p className="findItem" id="guide0">Mr. Fischoeder</p>
@@ -52,10 +52,12 @@ const BobsBurgers = (props) => {
             <div id="foundPop">
                 <p>All characters found! Your time is:</p>
                 <div id="finishTime"></div>
-                    <input id="name-input" placeholder="Name"></input>
-                    <button id='submit-time' onClick={()=>saveTime("Bob's Burgers")}>Submit</button>
-                <button onClick={() => window.location.reload()}>Play Again?</button>
-                <button  onClick={()=>showLeaderboard("Bob's Burgers")}>Leaderboard</button>
+                <input id="name-input" placeholder="Name"></input>
+                <button id='submit-time' onClick={()=>saveTime("Bob's Burgers")}>Submit</button>
+                <div className="gameEndBtns-container">
+                    <button className="gameEndBtns" onClick={() => window.location.reload()}>Play Again?</button>
+                    <button className="gameEndBtns"  onClick={()=>showLeaderboard("Bob's Burgers")}>Leaderboard</button>
+                </div>
                 
             </div>
             <div id='leaderboard-container'>
