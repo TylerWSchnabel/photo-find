@@ -8,7 +8,7 @@ import Ron from './Files/Ron-bobs.png'
 
 
 const BobsBurgers = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, setSelectedLevel, leaderboard, showLeaderboard, closeLeaderboard} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, playAgain, leaderboard, showLeaderboard, closeLeaderboard} = props
     let fischoeder = {x: 45, y: 64};
     let harold = {x: 19, y: 78};
     let ron = {x: 83, y: 70};
@@ -21,7 +21,8 @@ const BobsBurgers = (props) => {
 
     const characters = [fischoeder, harold, ron]
     return (  
-        <div>
+        <div className="level">
+            <div className="rotate">Please rotate device to play the game.</div>
             <div id="timerBG"></div>
             <div id='timerBox'>
                 <button className="timerBtn" onClick={()=>startTimer()}>Start Timer?</button>
@@ -35,6 +36,7 @@ const BobsBurgers = (props) => {
                 </Link>
                 
                 <p className="instructions">Find :</p>
+                
                 <img src={Fischoeder} alt="Mr. Fischoeder" className="legendImg"/>
                 <p className="findItem" id="guide0">Mr. Fischoeder</p>
                 <img src={Harold} alt="Harold Cranwinkle" className="legendImg"/>
@@ -55,7 +57,7 @@ const BobsBurgers = (props) => {
                 <input id="name-input" placeholder="Name"></input>
                 <button id='submit-time' onClick={()=>saveTime("Bob's Burgers")}>Submit</button>
                 <div className="gameEndBtns-container">
-                    <button className="gameEndBtns" onClick={() => window.location.reload()}>Play Again?</button>
+                    <button className="gameEndBtns" onClick={() => playAgain()}>Play Again?</button>
                     <button className="gameEndBtns"  onClick={()=>showLeaderboard("Bob's Burgers")}>Leaderboard</button>
                 </div>
                 

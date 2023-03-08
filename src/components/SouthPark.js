@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 
 const SouthPark = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, leaderboard, showLeaderboard, closeLeaderboard} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, leaderboard, showLeaderboard, closeLeaderboard, playAgain} = props
     const underpantsGnome = {x: 35, y: 66};
     const alGore = {x: 84, y: 40};
     const shelley = {x: 7, y: 49};
@@ -21,7 +21,8 @@ const SouthPark = (props) => {
       },[])
 
     return (  
-        <div className="futurama">
+        <div className="level">
+            <div className="rotate">Please rotate device to play the game.</div>
             <div id="timerBG"></div>
             <div id='timerBox'>
                 <button className="timerBtn" onClick={()=>startTimer()}>Start Timer?</button>
@@ -54,7 +55,7 @@ const SouthPark = (props) => {
                 <input id="name-input" placeholder="Name"></input>
                 <button id='submit-time' onClick={()=>saveTime("South Park")}>Submit</button>
                 <div className="gameEndBtns-container">
-                    <button className="gameEndBtns" onClick={() => window.location.reload()}>Play Again?</button>
+                    <button className="gameEndBtns" onClick={() => playAgain()}>Play Again?</button>
                     <button className="gameEndBtns"  onClick={()=>showLeaderboard("South Park")}>Leaderboard</button>
                 </div>
             </div>

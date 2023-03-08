@@ -222,15 +222,27 @@ function App() {
     document.getElementById('foundPop').style.display = 'grid';
   }
 
+  const playAgain =()=>{
+    resetChar();
+    document.getElementById('guide0').style.textDecoration="none"
+    document.getElementById('guide1').style.textDecoration="none"
+    document.getElementById('guide2').style.textDecoration="none"
+    document.getElementById('foundPop').style.display = "none";
+    document.getElementById('timerBox').style.display = 'grid';
+    document.getElementById('timerBG').style.display = 'flex';
+    document.getElementById('legend').style.display ='none';
+
+  }
+
   return (
     <div className="App">
       {/* <BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer}/> */}
       <Router basename="/photo-find">
         <Routes>
           <Route path='/' element={<Home leaderboard={leaderboard} getLeaderboard={getLeaderboard} setSelectedLevel={setSelectedLevel}/>}/>
-          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime}  getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>} />
-          <Route path='/south-park' element={<SouthPark openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>}/>
-          <Route path='/futurama' element={<Futurama openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard}/>}/>
+          <Route path='/bobs-burgers' element={<BobsBurgers openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime}  getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard} playAgain={playAgain}/>} />
+          <Route path='/south-park' element={<SouthPark openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard} playAgain={playAgain}/>}/>
+          <Route path='/futurama' element={<Futurama openPop={openPop} cordCheck={cordCheck} clickCord={clickCord} startTimer={startTimer} saveTime={saveTime} getLeaderboard={getLeaderboard} leaderboard={leaderboard} setSelectedLevel={setSelectedLevel} showLeaderboard={showLeaderboard} closeLeaderboard={closeLeaderboard} playAgain={playAgain}/>}/>
         </Routes>
       </Router>
     </div>

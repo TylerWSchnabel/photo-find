@@ -10,11 +10,11 @@ body {
 
 .home{
   display: grid;
-  grid-template-rows: 2fr 3fr;
 }
 .home-head{
   display: grid;
   background-color: rgb(255, 221, 127);
+  height: 20vh;
 }
 .home-title{
   align-self: center;
@@ -32,7 +32,7 @@ body {
   align-content: center;
   justify-content: center;
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 10vh;
 }
 
 a{
@@ -48,12 +48,12 @@ a:visited{
 
 .level-name {
   font-size: 2rem;
-  color: white;
+  color: black
 }
 
 
 #legend {
-  height: 5rem;
+  height: 13vh;
   width: 100%;
   display: none;
   grid-template-columns: repeat(9, 1fr);
@@ -62,19 +62,21 @@ a:visited{
   padding-left: 5rem;
   align-items: center;
   position: fixed;
-  font-size: 1.2rem;
+  font-size: 100%;
+  padding-top: 0;
 }
 
 .instructions {
   justify-self: end;
 }
 .legendImg {
-  height: 5rem;
+  height: 13vh;
   justify-self: center;
 } 
 .findItem {
   justify-self: start;
   align-self: center;
+  font-size: 80%;
 }
 
 .heroPhoto {
@@ -243,3 +245,32 @@ a:visited{
   font-size: 1.2rem;
   font-family: cartoon, Arial;
 }
+.rotate {
+  height: 100vh;
+  width: 100vh;
+  background-color: black;
+  color:aliceblue;
+  position: fixed;
+  z-index: 5;
+  transform: rotate(90deg);
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  top: 0%;
+  left: 0%;
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .levelSelect{
+    grid-template-columns: 1fr;
+  }
+  .home-title{
+    font-size: 2rem;
+  }
+  .rotate{
+    display: grid;
+  }
+}
+

@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 
 const Futurama = (props) => {
-    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, leaderboard, showLeaderboard, closeLeaderboard} = props
+    const {openPop, cordCheck, startTimer, saveTime, getLeaderboard, leaderboard, showLeaderboard, closeLeaderboard, playAgain} = props
     const zapp = {x:15, y: 61};
     const beelzebot = {x: 46, y: 46};
     const elzar = {x: 75, y: 84};
@@ -28,7 +28,8 @@ const Futurama = (props) => {
     
 
     return (  
-        <div className="futurama">
+        <div className="level">
+            <div className="rotate">Please rotate device to play the game.</div>
             <div id="timerBG"></div>
             <div id='timerBox'>
                 <button className="timerBtn" onClick={()=>startTimer()}>Start Timer?</button>
@@ -61,7 +62,7 @@ const Futurama = (props) => {
                 <input id="name-input" placeholder="Name"></input>
                 <button id='submit-time' onClick={()=>saveTime("Futurama")}>Submit</button>
                 <div className="gameEndBtns-container">
-                    <button className="gameEndBtns" onClick={() => window.location.reload()}>Play Again?</button>
+                    <button className="gameEndBtns" onClick={() => playAgain()}>Play Again?</button>
                     <button className="gameEndBtns"  onClick={()=>showLeaderboard("Futurama")}>Leaderboard</button>
                 </div>
             </div>
