@@ -247,12 +247,11 @@ a:visited{
 }
 .rotate {
   height: 100vh;
-  width: 100vh;
+  width: 100vw;
   background-color: black;
   color:aliceblue;
   position: fixed;
   z-index: 5;
-  transform: rotate(90deg);
   display: grid;
   justify-content: center;
   align-content: center;
@@ -271,6 +270,9 @@ a:visited{
   }
   .rotate{
     display: grid;
+  }
+  .gameBoard{
+    display: none;
   }
 }
 

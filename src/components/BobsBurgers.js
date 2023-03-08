@@ -23,70 +23,72 @@ const BobsBurgers = (props) => {
     return (  
         <div className="level">
             <div className="rotate">Please rotate device to play the game.</div>
-            <div id="timerBG"></div>
-            <div id='timerBox'>
-                <button className="timerBtn" onClick={()=>startTimer()}>Start Timer?</button>
-                <Link to='/'>
-                    <button className="timerBtn">Home</button>
-                </Link>
-            </div>
-            <div id="legend">
-                <Link to='/'>
-                    <p className="nav-label">Home</p>
-                </Link>
-                
-                <p className="instructions">Find :</p>
-                
-                <img src={Fischoeder} alt="Mr. Fischoeder" className="legendImg"/>
-                <p className="findItem" id="guide0">Mr. Fischoeder</p>
-                <img src={Harold} alt="Harold Cranwinkle" className="legendImg"/>
-                <p className="findItem" id="guide1">Harold</p>
-                <img src={Ron} alt="ron" className="legendImg"/>
-                <p className="findItem" id="guide2">Ron</p>
-            </div>
-            <img src={Bobs} alt="Bob's Burgers" className="heroPhoto" id="bobsBurgersPhoto" onClick={()=>{openPop('bobsPop')}}/>
-            <div className="highlight" id="highlight"></div>
-            <div className="pop-up" id="bobsPop">
-                <button className="popBtn" id="fischoeder" onClick={()=>cordCheck(characters[0],'bobsPop', 0)}>Mr Fischoeder</button>
-                <button className="popBtn" id="harold" onClick={()=>cordCheck(characters[1],'bobsPop', 1)}>Harold Cranwinkle</button>
-                <button className="popBtn" id="ron" onClick={()=>cordCheck(characters[2],'bobsPop', 2)}>Ron</button>
-            </div>
-            <div id="foundPop">
-                <p>All characters found! Your time is:</p>
-                <div id="finishTime"></div>
-                <input id="name-input" placeholder="Name"></input>
-                <button id='submit-time' onClick={()=>saveTime("Bob's Burgers")}>Submit</button>
-                <div className="gameEndBtns-container">
-                    <button className="gameEndBtns" onClick={() => playAgain()}>Play Again?</button>
-                    <button className="gameEndBtns"  onClick={()=>showLeaderboard("Bob's Burgers")}>Leaderboard</button>
-                </div>
-                
-            </div>
-            <div id='leaderboard-container'>
-                <h1 className="leaderboard-header">{level} Leaderboard</h1>
-                <div className="leaderboard">
-                    <ul className="leaderboard-titles">
-                        <div className="labels">
-                            <p className="leader-label">Name</p>
-                            <p className="leader-label">Time</p>
-                        </div>
-                    </ul>
-                    <ol className="leaderBoard-list">
-                        {leaderboard.map((entry)=>{
-                            return <li className="leaderboard-entry" key={entry.id}>
-                                <div className="leader-line">
-                                    <p>{entry.username}</p>
-                                    <p>{entry.time}</p>
-                                </div>
-                            </li>
-                        })}
-                    </ol>
-                </div>
-                <div className="leaderBtn-container">
-                    <button className="leaderBtn" onClick={()=>closeLeaderboard()}>Close</button>
+            <div className="gameBoard">
+                <div id="timerBG"></div>
+                <div id='timerBox'>
+                    <button className="timerBtn" onClick={()=>startTimer()}>Start Timer?</button>
                     <Link to='/'>
-                        <button className="leaderBtn">Home</button>
+                        <button className="timerBtn">Home</button>
                     </Link>
+                </div>
+                <div id="legend">
+                    <Link to='/'>
+                        <p className="nav-label">Home</p>
+                    </Link>
+                    
+                    <p className="instructions">Find :</p>
+                    
+                    <img src={Fischoeder} alt="Mr. Fischoeder" className="legendImg"/>
+                    <p className="findItem" id="guide0">Mr. Fischoeder</p>
+                    <img src={Harold} alt="Harold Cranwinkle" className="legendImg"/>
+                    <p className="findItem" id="guide1">Harold</p>
+                    <img src={Ron} alt="ron" className="legendImg"/>
+                    <p className="findItem" id="guide2">Ron</p>
+                </div>
+                <img src={Bobs} alt="Bob's Burgers" className="heroPhoto" id="bobsBurgersPhoto" onClick={()=>{openPop('bobsPop')}}/>
+                <div className="highlight" id="highlight"></div>
+                <div className="pop-up" id="bobsPop">
+                    <button className="popBtn" id="fischoeder" onClick={()=>cordCheck(characters[0],'bobsPop', 0)}>Mr Fischoeder</button>
+                    <button className="popBtn" id="harold" onClick={()=>cordCheck(characters[1],'bobsPop', 1)}>Harold Cranwinkle</button>
+                    <button className="popBtn" id="ron" onClick={()=>cordCheck(characters[2],'bobsPop', 2)}>Ron</button>
+                </div>
+                <div id="foundPop">
+                    <p>All characters found! Your time is:</p>
+                    <div id="finishTime"></div>
+                    <input id="name-input" placeholder="Name"></input>
+                    <button id='submit-time' onClick={()=>saveTime("Bob's Burgers")}>Submit</button>
+                    <div className="gameEndBtns-container">
+                        <button className="gameEndBtns" onClick={() => playAgain()}>Play Again?</button>
+                        <button className="gameEndBtns"  onClick={()=>showLeaderboard("Bob's Burgers")}>Leaderboard</button>
+                    </div>
+                    
+                </div>
+                <div id='leaderboard-container'>
+                    <h1 className="leaderboard-header">{level} Leaderboard</h1>
+                    <div className="leaderboard">
+                        <ul className="leaderboard-titles">
+                            <div className="labels">
+                                <p className="leader-label">Name</p>
+                                <p className="leader-label">Time</p>
+                            </div>
+                        </ul>
+                        <ol className="leaderBoard-list">
+                            {leaderboard.map((entry)=>{
+                                return <li className="leaderboard-entry" key={entry.id}>
+                                    <div className="leader-line">
+                                        <p>{entry.username}</p>
+                                        <p>{entry.time}</p>
+                                    </div>
+                                </li>
+                            })}
+                        </ol>
+                    </div>
+                    <div className="leaderBtn-container">
+                        <button className="leaderBtn" onClick={()=>closeLeaderboard()}>Close</button>
+                        <Link to='/'>
+                            <button className="leaderBtn">Home</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
