@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/photo-find/static/css/main.812a966a.css",
-    "main.js": "/photo-find/static/js/main.e276ddca.js",
+    "main.css": "/photo-find/static/css/main.4d65b24c.css",
+    "main.js": "/photo-find/static/js/main.e4e841ef.js",
     "static/js/787.55dde8bd.chunk.js": "/photo-find/static/js/787.55dde8bd.chunk.js",
     "static/media/futurama.jpg": "/photo-find/static/media/futurama.0f3a71fff8bc79f6e026.jpg",
     "static/media/southpark.jpg": "/photo-find/static/media/southpark.ed2f8fa1eb260a1c2b53.jpg",
@@ -17,12 +17,12 @@
     "static/media/MrFischoeder-bobs.webp": "/photo-find/static/media/MrFischoeder-bobs.11199f5d51641af90932.webp",
     "static/media/Elzar.webp": "/photo-find/static/media/Elzar.64923c7b3ff96e249da0.webp",
     "index.html": "/photo-find/index.html",
-    "main.812a966a.css.map": "/photo-find/static/css/main.812a966a.css.map",
-    "main.e276ddca.js.map": "/photo-find/static/js/main.e276ddca.js.map",
+    "main.4d65b24c.css.map": "/photo-find/static/css/main.4d65b24c.css.map",
+    "main.e4e841ef.js.map": "/photo-find/static/js/main.e4e841ef.js.map",
     "787.55dde8bd.chunk.js.map": "/photo-find/static/js/787.55dde8bd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.812a966a.css",
-    "static/js/main.e276ddca.js"
+    "static/css/main.4d65b24c.css",
+    "static/js/main.e4e841ef.js"
   ]
 }
